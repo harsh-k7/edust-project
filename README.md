@@ -1,121 +1,162 @@
-🚮 EDUST – Smart Waste Management Bins
-📌 Overview
+# EDUST Smart Waste Management System
 
-EDUST is an IoT-enabled smart waste management system designed to tackle urban waste collection problems. Our bins detect fill levels, compact waste, eliminate odors, and send real-time data to municipal dashboards.
+A comprehensive IoT-enabled waste management solution for municipalities with real-time monitoring, AI-powered predictions, and route optimization.
 
-With EDUST, cities can achieve cleaner streets, optimized waste collection, reduced costs, and improved sustainability.
+## 🌟 Features
 
-🌍 Problem Statement
+- **Real-time IoT Integration**: Connects with Blynk Cloud API to monitor bin fill levels
+- **Interactive Dashboard**: Admin interface with live maps, charts, and analytics
+- **Mobile Driver Interface**: Optimized mobile dashboard for collection drivers
+- **AI Predictions**: Machine learning models for predicting bin fill times and optimizing routes
+- **WebSocket Updates**: Real-time data synchronization across all connected clients
+- **Alert System**: Automated notifications for overflowing bins and sensor issues
+- **Route Optimization**: AI-powered route planning for efficient waste collection
 
-Overflowing dustbins create unhygienic conditions in cities.
+## 🏗️ Architecture
 
-Manual waste collection is inefficient and costly.
+### Frontend (React + TypeScript)
+- **Dashboard**: Comprehensive admin interface with metrics, maps, and controls
+- **Driver Interface**: Mobile-optimized interface for field workers
+- **Real-time Updates**: WebSocket integration for live data updates
+- **Responsive Design**: Works on desktop, tablet, and mobile devices
 
-Lack of real-time monitoring leads to delays in cleaning.
+### Backend (Node.js + Express)
+- **REST API**: Complete CRUD operations for bins, drivers, routes, and alerts
+- **IoT Integration**: Automated Blynk API synchronization every 2 minutes
+- **WebSocket Server**: Real-time communication with frontend clients
+- **Data Storage**: In-memory storage with full CRUD operations
 
-Odor and unmanaged waste affect public health and environment.
+### AI Service (Python + Flask)
+- **Fill Prediction**: Linear regression models for predicting bin capacity
+- **Route Optimization**: Nearest-neighbor TSP algorithm for efficient collection routes
+- **Anomaly Detection**: Pattern recognition for unusual waste generation
 
-💡 Our Solution – EDUST
+## 🚀 Quick Start
 
-EDUST introduces Smart Waste Bins powered by IoT + Cloud:
+### Prerequisites
+- Node.js 16+
+- Python 3.8+
+- Modern web browser
 
-📊 Fill Level Detection → Ultrasonic sensors detect how full the bin is.
+### Installation
 
-⚙️ Compaction → Motorized system compresses waste to store more.
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd edust-waste-management
+   ```
 
-🌬️ Odor Control → Carbon + HEPA filter removes foul smells.
+2. **Install dependencies**
+   ```bash
+   # Install Node.js dependencies
+   npm install
+   
+   # Install Python dependencies for AI service
+   cd ai-service
+   pip install -r requirements.txt
+   cd ..
+   ```
 
-📡 IoT Connectivity → ESP32 + GSM/LoRa sends data to cloud dashboards.
+3. **Environment Setup**
+   ```bash
+   # Copy environment template
+   cp .env.example .env
+   
+   # Edit .env with your configuration
+   # The Blynk token is pre-configured: pGyiSO3hcUVWNRGm_MWACXcFLnhRm09s
+   ```
 
-🔋 Power Supply → Solar-powered for streets, 12V adapter for homes.
+4. **Start the services**
 
-📱 User & Municipal Dashboard → Web app for real-time monitoring.
+   **Terminal 1 - Main Application:**
+   ```bash
+   npm run dev
+   ```
+   
+   **Terminal 2 - AI Service:**
+   ```bash
+   cd ai-service
+   python app.py
+   ```
 
-🛠️ Tech Stack
-🔌 Hardware
+5. **Access the application**
+   - Admin Dashboard: `http://localhost:5000`
+   - Driver Interface: `http://localhost:5000/driver`
+   - AI Service: `http://localhost:8001`
 
-ESP32 Microcontroller → Core IoT brain of the system.
+## 📱 Usage
 
-Ultrasonic Sensor → Detects fill level of the bin.
+### Admin Dashboard
+- View real-time bin status on interactive map
+- Monitor key metrics: total bins, collection needs, driver activity
+- Manage alerts and assign drivers to urgent collections
+- Analyze waste trends with historical charts
+- Optimize collection routes with AI recommendations
 
-Load Cell → Measures weight of collected waste.
+### Driver Interface (Mobile)
+- View assigned collection route and progress
+- Navigate to next bin location
+- Mark bins as collected upon completion
+- Report issues and contact dispatch
+- Real-time updates on route changes
 
-Moisture Sensor → Detects wet vs. dry waste.
+### IoT Integration
+- Automatic data sync with Blynk Cloud every 2 minutes
+- Real-time fill level monitoring from ultrasonic sensors
+- GPS tracking for mobile bins
+- Offline detection and alerts
 
-DC Motor + Compactor → Compresses waste.
+## 🔧 API Endpoints
 
-Carbon + HEPA Filter → Removes odor.
+### Bins Management
+- `GET /api/bins` - Get all bins
+- `POST /api/bins` - Create new bin
+- `PUT /api/bins/:id` - Update bin status
 
-Power → Solar panel + battery (public) / 12V adapter (home).
+### Driver Management
+- `GET /api/drivers` - Get all drivers
+- `POST /api/drivers` - Register new driver
+- `PUT /api/drivers/:id` - Update driver status
 
-☁️ Software & Cloud
+### Routes & Optimization
+- `GET /api/routes` - Get all routes
+- `POST /api/routes` - Create new route
+- `POST /api/ai/optimize-route` - AI route optimization
 
-Blynk / ThingSpeak / Firebase → IoT cloud platform for data storage.
+### Real-time Features
+- `POST /api/sync-iot` - Manual IoT data sync
+- `WebSocket /ws` - Real-time updates
+- `GET /api/alerts` - Get active alerts
 
-Web Dashboard (React + Node.js) → Real-time waste monitoring.
+## 🤖 AI Features
 
-Data Analytics → Predictive collection schedules for municipalities.
+### Predictive Analytics
+- **Fill Time Prediction**: Estimates when bins will reach capacity
+- **Pattern Recognition**: Identifies peak collection days and seasonal trends
+- **Anomaly Detection**: Flags unusual fill patterns or sensor malfunctions
 
-⚙️ Working Flow
+### Route Optimization
+- **Distance Minimization**: Reduces total travel distance
+- **Priority-based Routing**: Prioritizes critical/full bins
+- **Time Estimation**: Provides accurate completion time estimates
 
-Waste is thrown into the bin.
+## 🌐 IoT Configuration
 
-Sensors detect fill level, weight, and moisture.
+The system is pre-configured to work with Blynk IoT platform:
 
-If waste exceeds threshold → motor compresses trash.
+- **Token**: `pGyiSO3hcUVWNRGm_MWACXcFLnhRm09s`
+- **Pin V0**: Fill level percentage (0-100)
+- **Pin V1**: GPS latitude
+- **Pin V2**: GPS longitude
 
-ESP32 sends data to cloud platform (Blynk/Firebase/ThingSpeak).
+### Hardware Setup (ESP32 + Ultrasonic Sensor)
+```cpp
+// Blynk configuration
+#define BLYNK_TEMPLATE_ID "your_template_id"
+#define BLYNK_DEVICE_NAME "Waste Bin Sensor"
+#define BLYNK_AUTH_TOKEN "pGyiSO3hcUVWNRGm_MWACXcFLnhRm09s"
 
-Municipal dashboard shows:
-
-Fill status (Empty / Half / Full)
-
-Location of bin
-
-Collection alerts
-
-Data is analyzed to optimize collection routes.
-
-📊 Revenue Model
-
-EDUST will generate revenue through:
-
-Hardware Sales → Selling smart bins to municipalities, societies, corporates.
-
-SaaS Subscription → Charging cities for the cloud dashboard & analytics.
-
-Maintenance Services → Regular filter replacements & technical support.
-
-Data Insights → Selling anonymized waste data for sustainability research.
-
-🚀 Benefits
-
-✅ Cleaner streets & better public hygiene.
-✅ Reduced municipal costs (optimized routes & collection).
-✅ Longer bin usage with waste compaction.
-✅ Eco-friendly (solar powered, odor-free).
-✅ Scalable to both public and home use.
-
-📌 Future Roadmap
-
-✅ Prototype → Ultrasonic sensor + ESP32 (working demo).
-
-🔜 Pilot Project → Small-scale deployment in societies/colleges.
-
-🔜 Partnerships → Municipalities, Smart City projects, NGOs.
-
-🔜 AI Integration → Image recognition for automatic waste segregation.
-
-🔜 Scaling → Nationwide adoption, smart city networks.
-
-
-
-🏆 Impact & Vision
-
-EDUST aims to create sustainable, smart, and clean cities.
-Our vision is to deploy millions of smart bins across India and beyond, making waste collection efficient, transparent, and eco-friendly.
-
-👥 Team
-
-Founder: Harsh Kumar
-Project Name: EDUST – Smart Waste Management Bins
+// Send fill level to Blynk
+Blynk.virtualWrite(V0, fillPercentage);
+Blynk.virtualWrite(V1, gpsLat);
+Blynk.virtualWrite(V2, gpsLng);
